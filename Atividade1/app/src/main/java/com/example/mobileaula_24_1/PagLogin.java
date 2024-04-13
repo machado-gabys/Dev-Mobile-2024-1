@@ -1,50 +1,39 @@
 package com.example.mobileaula_24_1;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
-import android.widget.TextView;
+import android.widget.EditText;
+import android.widget.Toast;
 
-import com.google.android.material.snackbar.Snackbar;
+import androidx.appcompat.app.AppCompatActivity;
 
 public class PagLogin extends AppCompatActivity {
 
-    private TextView text_tela_cadastro;
-    private TextView bt_entrar;
+    private EditText editEmail;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_pag_login);
 
+        editEmail = findViewById(R.id.edit_email);
 
-        IniciarComponentes();
-
-        text_tela_cadastro.setOnClickListener(new View.OnClickListener() {
+        findViewById(R.id.bt_entrar).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-                Intent intent = new Intent(PagLogin.this, PagCadastro.class);
-                startActivity(intent);
-                Snackbar.make(v, "oi", Snackbar.LENGTH_LONG).show();
-
+                String email = editEmail.getText().toString().trim();
+                if (!email.isEmpty()) {
+                    Log.d("PagLogin", "Email passado para PagInicial: " + email);
+                    // Iniciar a próxima atividade e passar o email como extra
+                    Intent intent = new Intent(PagLogin.this, PagInicial.class);
+                    intent.putExtra("email", email);
+                    startActivity(intent);
+                } else {
+                    Toast.makeText(PagLogin.this, "Por favor, insira um email.", Toast.LENGTH_SHORT).show();
+                }
             }
         });
-        bt_entrar.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                Intent intent = new Intent(PagLogin.this, PagInicial.class);
-                startActivity(intent);
-
-            }
-        });
-    }
-
-    private void IniciarComponentes(){
-        text_tela_cadastro = findViewById(R.id.text_tela_cadastro);
-        bt_entrar = findViewById(R.id.bt_entrar);
     }
 }
