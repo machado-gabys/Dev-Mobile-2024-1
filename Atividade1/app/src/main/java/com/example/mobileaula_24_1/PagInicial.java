@@ -1,5 +1,6 @@
 package com.example.mobileaula_24_1;
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.TextView;
@@ -22,12 +23,15 @@ public class PagInicial extends AppCompatActivity {
     private TextView textNomeUsuario;
     private TextView textPostUsuario;
     private TextView textComentarios;
+    private TextView textEmail;
 
+    @SuppressLint("MissingInflatedId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_pag_inicial);
 
+        textEmail = findViewById(R.id.text_Email);
         textNomeUsuario = findViewById(R.id.text_Nome_Usuario);
         textPostUsuario = findViewById(R.id.text_Post_Usuario);
         textComentarios = findViewById(R.id.text_Comentarios);
@@ -37,6 +41,7 @@ public class PagInicial extends AppCompatActivity {
 
         // Verificar se o email não é nulo
         if (email != null) {
+            textEmail.setText(email);
             getUserDetails(email);
         } else {
             Toast.makeText(this, "Email não recebido.", Toast.LENGTH_SHORT).show();
